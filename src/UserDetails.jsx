@@ -8,8 +8,6 @@ const UserDetails = () => {
 
     const fetchUserDetails = async () => {
         try {
-            //add your URL of API Gateway of GetUser Lambda function
-            //const response = await axios.get(`https://c1uznhy4u2.execute-api.ap-south-1.amazonaws.com/dev/getUser?userid=${userId}`); 
             const response = await axios.get(`https://9yoywh6519.execute-api.us-east-1.amazonaws.com/dev/getuser/?username=${userId}`); 
             
             if (response.data.user) {
@@ -26,32 +24,37 @@ const UserDetails = () => {
     };
 
     return (
-        <div className="card">
-            <h2 className="text-2xl font-bold mb-4">Get Employee Details</h2>
-            <input 
-                type="text"
-                placeholder="Enter User ID"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
-                className="border p-2 rounded mb-2"
-            />
-            <button 
-                onClick={fetchUserDetails}
-                className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
-            >
-                Get employee
-            </button>
-            
+        <div className="max-w-md mx-auto mt-10 bg-white shadow-xl rounded-2xl p-6 border border-gray-200">
+            <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">Get Employee Details</h2>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3 mb-4">
+                <input 
+                    type="text"
+                    placeholder="Enter User ID"
+                    value={userId}
+                    onChange={(e) => setUserId(e.target.value)}
+                    className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                />
+                <button 
+                    onClick={fetchUserDetails}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition duration-200"
+                >
+                    Get Employee
+                </button>
+            </div>
+
             {error && (
-                <p className="text-red-500 mt-2">{error}</p>
+                <p className="text-red-500 text-center mt-2">{error}</p>
             )}
 
             {userDetails && (
-                <div className="mt-4 border p-4 rounded bg-gray-100">
-                    <h3 className="text-xl font-semibold">User Details:</h3>
-                    <p><strong>User ID:</strong> {userDetails.username}</p>
-                    <p><strong>Email:</strong> {userDetails.email}</p>
-                    <p><strong>Date Joined:</strong> {userDetails.dateJoined}</p>
+                <div className="mt-6 bg-gray-50 border border-gray-200 rounded-lg p-5">
+                    <h3 className="text-lg font-semibold text-gray-700 mb-3">User Details:</h3>
+                    <div className="space-y-2">
+                        <p><span className="font-medium text-gray-600">User ID:</span> {userDetails.username}</p>
+                        <p><span className="font-medium text-gray-600">Email:</span> {userDetails.email}</p>
+                        <p><span className="font-medium text-gray-600">Date Joined:</span> {userDetails.dateJoined}</p>
+                    </div>
                 </div>
             )}
         </div>
